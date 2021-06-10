@@ -1,23 +1,30 @@
 var sec = document.querySelector("section");
 var h2El = document.querySelector("h2");
-var stage = 0;
-
-// create a start button
-//function startQuiz() {
-
-/*
-// create a timer
 var timerEl = document.getElementById('countdown');
 var mainEl = document.getElementById('main');
+var timerInterval; 
+var stage = 0;
+var timeLeft = 60;
+var scoreBoard = document.querySelector("HighScore");
+var initials = document.querySelector("initials");
+var score = document.querySelector("score");
+var HighScores = JSON.parse(localStorage.getItem("HighScores"))||[]
+// create a start button
+function startQuiz() {
 
-var message = 'Quiz Complete';
 
+// create a timer
+
+renderQuestion();
+countdown();
+//var message = 'Quiz Complete';
+}
 function countdown() {
-    var timeLeft = 60;
 
-    var timeInterval = setInterval(function () {
+     timerInterval = setInterval(function () {
         if (timeLeft > 1) {
             timerEl.textContent = timeLeft + 'seconds remaining';
+            timeLeft--;
         } else if (timeLeft === 1) {
             timerEl.textContent = timeLeft + "seconds remaing";
             timeLeft--;
@@ -26,10 +33,10 @@ function countdown() {
             clearInterval(timerInterval);
             displayMessage();
         }
-    }
+    }, 1000
     )
 }
-*/
+
 // create questions
 var questions = [
     {title: "What does CSS stand for?",
@@ -48,8 +55,12 @@ var questions = [
         "JavaScript",
     ],
     correct: 3,},
-    {title: "True or False, an array is an object.",
-    answer: "True",
+    {title: "What is array?",
+    answers: [
+        "An object",
+        "A straight line with an arrow",
+        "The end of a sentence",
+    ],
     correct: 1,},
     {title: "What does DRY stand for?",
     answers: [
@@ -72,7 +83,7 @@ var questions = [
 function renderQuestion(){
     var question = questions[stage];
     h2El.textContent = question.title;
-
+    sec.innerHTML = "";
     for (var i = 0; i < question.answers.length; i++) {
         var answer = question.answers[i];
         var btnEl = document.createElement("button");
@@ -83,18 +94,7 @@ function renderQuestion(){
     }
 };
 
-function renderAnswer(){
-    var answer = answers[stage];
 
-    for (var i = 0; i < answers.questions.length; i++) {
-        var answer = question.answers[i];
-        var btnEl = document.createElement("button");
-        btnEl.textContent = answer;
-        btnEl.setAttribute("class", "btn");
-        btnEl.setAttribute("data-index", i);
-        sec.appendChild(btnEl);
-    }
-};
 sec.addEventListener('click', function(event) {
 var element = event.target; 
 if (element.matches("button")) {
@@ -102,13 +102,21 @@ if (element.matches("button")) {
         stage++;
         renderQuestion();
     } else {
+        clearInterval(timerInterval);
         h2El.textContent = "Quiz Complete";
+        sec.innerHTML = "";
+        //score board; create event listner 
     }
     var index = parseInt(element.dataset.index);
 }
 });
+score.addEventListener('click', function(event) {
+    var initialsValue = initials.value
+    var highscore = {'Score': timeLeft, 'initial' : initialsValue}
+    HighScores.push(highscore)
+    localStorage.setItem("HighScores", Highscores)
+})
 
-renderQuestion();
 
 // when question is answered correctly, presented with another question
 
@@ -118,3 +126,4 @@ renderQuestion();
 // then the game is over
 
 // when the game is over, then you can save your intials and score 
+//score = timeLeft

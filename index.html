@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coding Quiz</title>
-    <Link rel="stylesheet" href= "./assets/style.css"/>
+    <Link rel="stylesheet" href="./assets/style.css" />
 </head>
+
 <body>
     <div id="countdown"></div>
     <header>
@@ -15,18 +17,24 @@
             taking this five question quiz. The quiz is timed for 60 seconds.
             Good Luck!!
         </p>
-       <div style="text-align:center;">
-        <button onclick='startQuiz()'>Begin Coding Quiz</button>
-    </div>
-    <h2></h2>
+        <div style="text-align:center;">
+            <button onclick='startQuiz()'>Begin Coding Quiz</button>
+        </div>
+        <div style="text-align:center;">
+        <h2></h2>
+        </div>
     </header>
     <section>
-    <div>
-        <p>High Score and Initials</p>
-        <p id="HighScore"></p> 
-       <input id="initials" type="text"> 
-        <button id="score">Submit</button>
-    </div>
-  <script src="./assets/script.js"></script>
+        <div>
+            <p>ScoreBoard</p>
+            <p id="HighScore"></p>
+            <label for="initials">Initials</label>
+            <input id="initials" type="text">
+            <label for="score">Score</label>
+            <input id="Score" type="number">
+            <button id="score">Submit</button>
+        </div>
+        <script src="./assets/script.js"></script>
 </body>
+
 </html>
